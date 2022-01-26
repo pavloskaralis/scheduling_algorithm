@@ -1,5 +1,5 @@
 import { nameToEventsMap } from "./maps.mjs";
-
+console.log( nameToEventsMap["Maggie"], nameToEventsMap["Joe"], nameToEventsMap["Jordan"] )
 export function combineExistingEvents(names) {
   const combined = names.reduce((output, name) => {
     const events = nameToEventsMap[name];

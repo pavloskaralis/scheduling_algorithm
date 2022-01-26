@@ -27,11 +27,14 @@ function findAvailableTimes(names, window, limits, minMinutes) {
     //add availability if gap between current window start and event start
     if (windowStart < eventStart) {
       const availability = toTimeWindow(windowStart, eventStart);
-      const trimmed = trimWithinLimit(availability, limits);
-      if (isAboveMinDuration(trimmed, minMinutes)) {
-        const formatted = formatAvailableTime(trimmed);
-        output.push(formatted);
-      }
+      const splitByDate = splitTimeWindowByDate(availability);
+      splitByDate.forEach((date) => {
+        const trimmed = trimWithinLimit(date, limits);
+        if (isAboveMinDuration(trimmed, minMinutes)) {
+          const formatted = formatAvailableTime(trimmed);
+          output.push(formatted);
+        }
+      });
     }
     //shrink current window
     currentWindow = toTimeWindow(eventEnd, windowEnd);
@@ -40,8 +43,8 @@ function findAvailableTimes(names, window, limits, minMinutes) {
   if (currentWindow.startTime < window.endTime) {
     const availability = toTimeWindow(currentWindow.startTime, window.endTime);
     const splitByDate = splitTimeWindowByDate(availability);
-    splitByDate.forEach((availability) => {
-      const trimmed = trimWithinLimit(availability, limits);
+    splitByDate.forEach((date) => {
+      const trimmed = trimWithinLimit(date, limits);
       if (isAboveMinDuration(trimmed, minMinutes)) {
         const formatted = formatAvailableTime(trimmed);
         output.push(formatted);
@@ -54,7 +57,7 @@ function findAvailableTimes(names, window, limits, minMinutes) {
 
 // TEST
 // Jane, John, Maggie, Nick, Emily, Joe, Jordan
-const testArray = ["Maggie", "Joe", "Jordan"];
+const testArray = ["Maggie",  "Joe", "Jordan"];
 const testWindow = {
   startTime: "2021-07-05T13:00:00",
   endTime: "2021-07-07T21:00:00",
