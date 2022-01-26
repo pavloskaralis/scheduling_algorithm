@@ -1,0 +1,24 @@
+{
+  "name": "coding_interview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-json-modules script.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavloskaralis/rentgrata.git"
+  },
+  "author": "Pavlos Karalis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pavloskaralis/rentgrata/issues"
+  },
+  "homepage": "https://github.com/pavloskaralis/rentgrata#readme",
+  "engines": {
+    "npm": ">=8.1.2",
+    "node": ">=17.1.0"
+  }
+}
