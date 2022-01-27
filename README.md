@@ -14,7 +14,7 @@ Test variables at the bottom of script.mjs exist to be altered.
 The main script function takes in the following arguments:
 
 - names: a string array of names to search events for
-- dateRange: a start time and end time string which specify the search scope boundaries
+- dateRange: a start time and end time string which specify the search boundaries
 - dailyLimits: 4 integers to specify daily start time and end time limits (hours and minutes)
 - minMinutes: an integer to specify the minimum availability duration in minutes
 
