@@ -51,11 +51,11 @@ export function trimWithinLimit(
 
       //trim if date range start or end falls outside of daily limits
       const trimmed = {
-        startTime:
-          currentStartTime < startLimit ? startLimit : currentStartTime,
+        startTime: currentStartTime < startLimit ? startLimit : currentStartTime,
         endTime: endTime > endLimit ? endLimit : endTime,
       };
       output.push(trimmed);
+      
       //start next iteration at the start of the next day
       currentStartTime = getNextDate(trimmed.startTime);
     }
