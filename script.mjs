@@ -66,7 +66,6 @@ const testWindow = {
   startTime: "2021-07-05T13:00:00",
   endTime: "2021-07-07T21:00:00",
 };
-
 //0 0 24 for no daily limit
 const testDailyLimits = {
   startHours: 9,
