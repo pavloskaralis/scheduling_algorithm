@@ -2,11 +2,13 @@
 import events from "./events.json" assert { type: "json" };
 import users from "./users.json" assert { type: "json" };
 
+//builds map from users json
 export const userIdToNameMap = users.reduce((output, { id, name }) => {
   output[id] = name;
   return output;
 }, {});
 
+//builds map from events json
 export const nameToEventsMap = events.reduce(
   (output, { user_id, start_time, end_time }) => {
     const name = userIdToNameMap[user_id];
