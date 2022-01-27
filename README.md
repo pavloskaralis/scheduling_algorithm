@@ -1,7 +1,7 @@
 # Instructions
 
 Requires node version 17.1.0 or above:<br/>
-nvm install 17.1.0
+nvm install 17.1.0<br/>
 [nvm install instructions](https://tecadmin.net/install-nvm-macos-with-homebrew/)
 
 To start script enter:<br/>
