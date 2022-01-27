@@ -4,7 +4,7 @@ Requires node version 17.1.0 or above:<br/>
 nvm install 17.1.0<br/>
 [nvm install instructions](https://tecadmin.net/install-nvm-macos-with-homebrew/)
 
-To start script enter:<br/>
+To start script run:<br/>
 npm start
 
 Test variables at the bottom of script.mjs exist to be altered. 
