@@ -1,17 +1,18 @@
 import { nameToEventsMap } from "./maps.mjs";
-console.log( nameToEventsMap["Maggie"], nameToEventsMap["Joe"], nameToEventsMap["Jordan"] )
-export function combineExistingEvents(names) {
-  const combined = names.reduce((output, name) => {
+
+//combine all events by name and sort
+export function getExistingEvents(names) {
+  const combined = names.reduce((map, name) => {
     const events = nameToEventsMap[name];
-    output = output.concat(events);
-    return output;
+    map = map.concat(events);
+    return map;
   }, []);
   // important
   const sorted = combined.sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
   return sorted;
 }
 
-export function toTimeWindow(startTime, endTime) {
+export function toDateRange(startTime, endTime) {
   return { startTime, endTime };
 }
 
@@ -19,22 +20,42 @@ export function trimWithinLimit(
   { startTime, endTime },
   { startHours, startMinutes, endHours, endMinutes }
 ) {
-  const limitStartDate = new Date(startTime);
-  limitStartDate.setHours(startHours);
-  limitStartDate.setMinutes(startMinutes);
-  const startTimeISO = limitStartDate.toISOString();
-  const limitStartTime = startTimeISO.slice(0, startTimeISO.length - 5);
+  const output = []
+  const startDate = new Date(startTime);
+  const endDate = new Date(endTime);
+  const days = endDate.getDate() - startDate.getDate() + 1
 
-  const limitEndDate = new Date(startTime);
-  limitEndDate.setHours(endHours);
-  limitEndDate.setMinutes(endMinutes);
-  const endTimeISO = limitEndDate.toISOString();
-  const limitEndTime = endTimeISO.slice(0, endTimeISO.length - 5);
+  let currentStartTime = startTime
+  //condition for no daily time limits
+  if( startHours === 0 && startMinutes === 0 && endHours === 24 ) {
+    const notTrimmed = toDateRange(startTime, endTime)
+    output.push(notTrimmed)
+  } else {
+    for(let i = 0; i < days; i++){
+      const currentStartLimit = new Date(currentStartTime)
+      currentStartLimit.setHours(startHours)
+      currentStartLimit.setMinutes(startMinutes)
+      const startLimitISO = currentStartLimit.toISOString();
+      const startLimit = startLimitISO.slice(0, startLimitISO.length - 5);
 
-  return {
-    startTime: startTime < limitStartTime ? limitStartTime : startTime,
-    endTime: endTime > limitEndTime ? limitEndTime : endTime,
-  };
+      const currentEndLimit = new Date(currentStartTime)
+      currentEndLimit.setHours(endHours)
+      currentEndLimit.setMinutes(endMinutes)
+      const endLimitISO = currentEndLimit.toISOString();
+      const endLimit = endLimitISO.slice(0, endLimitISO.length - 5);
+
+      const trimmed = {
+        startTime: currentStartTime < startLimit ? startLimit : currentStartTime,
+        endTime: endTime > endLimit ? endLimit : endTime,
+      };
+
+      output.push(trimmed)
+      
+      currentStartTime = getNextDate(trimmed.startTime)
+    }
+  }
+  
+  return output
 }
 
 export function getNextDate(time) {
@@ -52,20 +73,20 @@ export function splitTimeWindowByDate({ startTime, endTime }) {
   let startDate = new Date(startTime);
   let endDate = new Date(endTime);
   if (startDate.toLocaleDateString() === endDate.toLocaleDateString()) {
-    const date = toTimeWindow(startTime, endTime);
+    const date = toDateRange(startTime, endTime);
     output.push(date);
   } else {
     const days = endDate.getDate() - startDate.getDate();
     let nextDate = getNextDate(startTime);
-    let date = toTimeWindow(startTime, nextDate);
+    let date = toDateRange(startTime, nextDate);
     output.push(date);
     for (let i = 1; i < days; i++) {
       const currentDate = nextDate;
       nextDate = getNextDate(nextDate);
-      date = toTimeWindow(currentDate, nextDate);
+      date = toDateRange(currentDate, nextDate);
       output.push(date);
     }
-    date = toTimeWindow(nextDate, endTime);
+    date = toDateRange(nextDate, endTime);
     output.push(date);
   }
 
