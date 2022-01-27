@@ -5,7 +5,6 @@ export function addZeroIfSingleDigit(string) {
 
 //formats time to  match README.md example output
 export function formatAvailableTime({ startTime, endTime }) {
-
   //format start date
   const startDate = new Date(startTime);
   let [sYear, sDay, sMonth] = startDate

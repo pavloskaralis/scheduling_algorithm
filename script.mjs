@@ -16,7 +16,8 @@ function findAvailableTimes(names, dateRange, dailyLimits, minMinutes) {
   let currentDateRange = dateRange;
   for (let i = 0; i < events.length; i++) {
     const { startTime: nextEventStart, endTime: nextEventEnd } = events[i];
-    const { startTime: dateRangeStart, endTime: dateRangeEnd } = currentDateRange;
+    const { startTime: dateRangeStart, endTime: dateRangeEnd } =
+      currentDateRange;
 
     //skip next steps if event is outside date range
     if (dateRangeStart >= nextEventEnd || dateRangeEnd <= nextEventStart) {
@@ -29,14 +30,13 @@ function findAvailableTimes(names, dateRange, dailyLimits, minMinutes) {
 
       //trim and break apart time gap based on daily limits
       const trimmed = trimWithinLimit(timeGap, dailyLimits);
-      trimmed.forEach( availability => {
-
+      trimmed.forEach((availability) => {
         //check that trim is greater or equal to minimum minutes requirement
         if (meetsDurationReq(availability, minMinutes)) {
           const formatted = formatAvailableTime(availability);
           output.push(formatted);
         }
-      })
+      });
     }
 
     //shorten date range start to next event end
@@ -49,14 +49,13 @@ function findAvailableTimes(names, dateRange, dailyLimits, minMinutes) {
 
     //trim and break apart time gap based on daily limits
     const trimmed = trimWithinLimit(timeGap, dailyLimits);
-    trimmed.forEach( availability => {
-      
+    trimmed.forEach((availability) => {
       //check that trim is greater or equal to minimum minutes requirement
       if (meetsDurationReq(availability, minMinutes)) {
         const formatted = formatAvailableTime(availability);
         output.push(formatted);
       }
-    })
+    });
   }
 
   return formatOutput(output);

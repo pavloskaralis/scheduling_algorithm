@@ -1,3 +1,4 @@
+//validates date range and daily limits arguments
 export function validateArgs(
   { startTime, endTime },
   { startHours, startMinutes, endHours, endMinutes }

@@ -23,44 +23,45 @@ export function trimWithinLimit(
   { startTime, endTime },
   { startHours, startMinutes, endHours, endMinutes }
 ) {
-  const output = []
+  const output = [];
   const startDate = new Date(startTime);
   const endDate = new Date(endTime);
-  const days = endDate.getDate() - startDate.getDate() + 1
-  let currentStartTime = startTime
+  const days = endDate.getDate() - startDate.getDate() + 1;
+  let currentStartTime = startTime;
 
   //condition for no daily time limits
-  if( startHours === 0 && startMinutes === 0 && endHours === 24 ) {
-    const notTrimmed = toDateRange(startTime, endTime)
-    output.push(notTrimmed)
+  if (startHours === 0 && startMinutes === 0 && endHours === 24) {
+    const notTrimmed = toDateRange(startTime, endTime);
+    output.push(notTrimmed);
   } else {
-    for(let i = 0; i < days; i++){
+    for (let i = 0; i < days; i++) {
       //format daily limit start for current date
-      const currentStartLimit = new Date(currentStartTime)
-      currentStartLimit.setHours(startHours)
-      currentStartLimit.setMinutes(startMinutes)
+      const currentStartLimit = new Date(currentStartTime);
+      currentStartLimit.setHours(startHours);
+      currentStartLimit.setMinutes(startMinutes);
       const startLimitISO = currentStartLimit.toISOString();
       const startLimit = startLimitISO.slice(0, startLimitISO.length - 5);
 
       //format daily limit end for current date
-      const currentEndLimit = new Date(currentStartTime)
-      currentEndLimit.setHours(endHours)
-      currentEndLimit.setMinutes(endMinutes)
+      const currentEndLimit = new Date(currentStartTime);
+      currentEndLimit.setHours(endHours);
+      currentEndLimit.setMinutes(endMinutes);
       const endLimitISO = currentEndLimit.toISOString();
       const endLimit = endLimitISO.slice(0, endLimitISO.length - 5);
 
       //trim if date range start or end falls outside of daily limits
       const trimmed = {
-        startTime: currentStartTime < startLimit ? startLimit : currentStartTime,
+        startTime:
+          currentStartTime < startLimit ? startLimit : currentStartTime,
         endTime: endTime > endLimit ? endLimit : endTime,
       };
-      output.push(trimmed)
+      output.push(trimmed);
       //start next iteration at the start of the next day
-      currentStartTime = getNextDate(trimmed.startTime)
+      currentStartTime = getNextDate(trimmed.startTime);
     }
   }
-  
-  return output
+
+  return output;
 }
 
 //returns formatted version of next date
