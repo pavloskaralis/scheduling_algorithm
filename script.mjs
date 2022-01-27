@@ -16,8 +16,7 @@ function findAvailableTimes(names, dateRange, dailyLimits, minMinutes) {
   let currentDateRange = dateRange;
   for (let i = 0; i < events.length; i++) {
     const { startTime: nextEventStart, endTime: nextEventEnd } = events[i];
-    const { startTime: dateRangeStart, endTime: dateRangeEnd } =
-      currentDateRange;
+    const { startTime: dateRangeStart, endTime: dateRangeEnd } = currentDateRange;
 
     //skip next steps if event is outside date range
     if (dateRangeStart >= nextEventEnd || dateRangeEnd <= nextEventStart) {
