@@ -61,13 +61,13 @@ function findAvailableTimes(names, dateRange, dailyLimits, minMinutes) {
   return formatOutput(output);
 }
 
-// "Jane", "John", "Maggie", "Nick", "Emily", "Joe", "Jordan"
+//"Jane", "John", "Maggie", "Nick", "Emily", "Joe", "Jordan"
 const testArray = ["Maggie", "Joe", "Jordan"];
 const testWindow = {
   startTime: "2021-07-05T13:00:00",
   endTime: "2021-07-07T21:00:00",
 };
-// 0 0 24 for no daily limit
+//0 0 24 for no daily limit
 const testDailyLimits = {
   startHours: 9,
   startMinutes: 0,
