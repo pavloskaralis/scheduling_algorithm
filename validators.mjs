@@ -13,6 +13,6 @@ export function validateArgs(
     case startHours > 24 || endHours > 24:
       throw "daily limit hours cannot exceed 24"
     case startMinutes > 59 || endMinutes > 59:
-      throw "daily limit minnutes cannot exceed 59"
+      throw "daily limit minutes cannot exceed 59"
   }
 }
