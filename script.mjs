@@ -62,7 +62,7 @@ function findAvailableTimes(names, dateRange, dailyLimits, minMinutes) {
 
 //"Jane", "John", "Maggie", "Nick", "Emily", "Joe", "Jordan"
 const testArray = ["Maggie", "Joe", "Jordan"];
-const testWindow = {
+const testDateRange = {
   startTime: "2021-07-05T13:00:00",
   endTime: "2021-07-07T21:00:00",
 };
@@ -75,5 +75,5 @@ const testDailyLimits = {
 };
 const testMinimumMinutes = 1;
 console.log(
-  findAvailableTimes(testArray, testWindow, testDailyLimits, testMinimumMinutes)
+  findAvailableTimes(testArray, testDateRange, testDailyLimits, testMinimumMinutes)
 );
