@@ -42,7 +42,7 @@ function findAvailableTimes(names, dateRange, dailyLimits, minMinutes) {
     currentDateRange = toDateRange(nextEventEnd, dateRangeEnd);
   }
 
-  //process any remaining time game
+  //process any remaining time gap
   if (currentDateRange.startTime < dateRange.endTime) {
     const timeGap = toDateRange(currentDateRange.startTime, dateRange.endTime);
 
